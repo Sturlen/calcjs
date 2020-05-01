@@ -34,7 +34,7 @@
   background-color: var(--keypad-button-color);
   color: var(--button-text-color);
   border: none;
-  transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.11s ease-in-out;
 }
 
 .keypadButton:hover {
