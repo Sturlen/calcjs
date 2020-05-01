@@ -12,9 +12,16 @@
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:react/recommended"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "none"
+        }
+      }
+    ]
+  }
 }
