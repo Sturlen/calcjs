@@ -2,6 +2,7 @@
   --keypad-button-color: rgb(0, 0, 0);
   --action-color: rgb(0, 24, 10);
   --button-text-color: white;
+  --border-color: white;
 
   text-align: center;
   background-color: #282c34;
@@ -28,6 +29,7 @@
   height: 100%;
 
   display: block;
+  box-sizing: border-box;
   place-self: stretch;
   /* border: 2px #61dafb; */
   padding: 0px;
@@ -56,4 +58,35 @@
 
 .equalsButton {
   background-color: var(--action-color);
+}
+
+.inputBox {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  border: white 2px solid;
+}
+
+.historyRow {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.inputRow {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.historyRow p {
+  padding-right: 1rem;
+}
+
+.inputRow h2 {
+  padding-right: 1rem;
 }
