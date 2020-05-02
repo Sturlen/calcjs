@@ -5,7 +5,7 @@ import InputBox from "./InputBox"
 
 function App(): JSX.Element {
   return (
-    <div className="app appGrinder">
+    <div className="app appGrid">
       <InputBox value={0} />
       <Keypad />
     </div>
