@@ -3,7 +3,7 @@ import React from "react"
 interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   history?: string
-  value: number
+  value: string
 }
 
 function InputBox({
