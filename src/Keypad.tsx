@@ -9,7 +9,7 @@ function Keypad({ className, ...props }: KeypadProps): JSX.Element {
   const handleNumbers: (num: number) => void = (num): void => console.log(num)
   return (
     <div className={className ?? "keypadElem"} {...props}>
-      <NumberButton label={1} onNumber={handleNumbers} disabled />
+      <NumberButton label={1} onNumber={handleNumbers} />
       <NumberButton label={2} onNumber={handleNumbers} />
       <NumberButton label={3} onNumber={handleNumbers} />
       <NumberButton label={4} onNumber={handleNumbers} />
