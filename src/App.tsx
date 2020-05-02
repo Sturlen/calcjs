@@ -14,7 +14,7 @@ function App(): JSX.Element {
     setBuffer(buffer + num)
   }
 
-  const [AppRef, handleKeyDown] = useKeyboardListener()
+  const [AppRef, handleKeyDown] = useKeyboardListener({ onDigit: handleNumber })
   return (
     <div
       className="app appGrid"
