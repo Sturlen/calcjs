@@ -11,9 +11,6 @@ import { OperatorChar, DigitChar } from "../types/calctypes"
  */
 function App(): JSX.Element {
   const [buffer, setBuffer] = useState("0")
-  const handleNumber = (num: number): void => {
-    setBuffer(buffer + num)
-  }
 
   const handleDigit = (num: DigitChar): void => {
     console.log("digit", num)
@@ -36,7 +33,7 @@ function App(): JSX.Element {
       ref={AppRef}
     >
       <InputBox value={buffer} />
-      <Keypad onNumber={handleNumber} />
+      <Keypad onDigit={handleDigit} />
     </div>
   )
 }

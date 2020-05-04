@@ -21,7 +21,7 @@ function useCalcBindings({
   handleDecimal,
   handleSubmit,
 }: CalcBindings): [HTMLRefObject, HTMLKeyboardEvent] {
-  const bindings = new Map([
+  const bindings: KeyboardEvents = new Map([
     [
       "0",
       (): void => {

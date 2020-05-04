@@ -1,4 +1,5 @@
 import React from "react"
+import { DigitChar } from "../types/calctypes"
 
 interface KeypadButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
@@ -6,8 +7,8 @@ interface KeypadButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 interface NumberButtonProps extends KeypadButtonProps {
-  label: number
-  onNumber?: (num: number) => void
+  label: DigitChar
+  onDigit?: (label: DigitChar) => void
 }
 
 interface ActionButtonProps extends KeypadButtonProps {
@@ -48,18 +49,14 @@ function ActionButton({ onClick, ...props }: ActionButtonProps): JSX.Element {
  */
 function NumberButton({
   label,
-  onNumber,
+  onDigit,
   ...props
 }: NumberButtonProps): JSX.Element {
-  const handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void = (
-    event
-  ) => {
-    event.preventDefault()
-    onNumber?.(label) // Only execute if function exitst
-  }
   return (
     <KeypadButton
-      onClick={handleClick}
+      onClick={(e): void => {
+        onDigit?.(label)
+      }}
       onMouseDown={(e): void => e.preventDefault()}
       label={label}
       className={"numberButton"}
