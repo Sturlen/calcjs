@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "./App.css"
 import Keypad from "./Keypad"
 import InputBox from "./InputBox"
-import useKeyboardListener from "./useKeyboardListener"
+import useKeyboardBindings from "../hooks/useKeyboardBindings"
 
 /**
  * Calculator app
@@ -14,7 +14,7 @@ function App(): JSX.Element {
     setBuffer(buffer + num)
   }
 
-  const [AppRef, handleKeyDown] = useKeyboardListener({ onDigit: handleNumber })
+  const [AppRef, handleKeyDown] = useKeyboardBindings({ onDigit: handleNumber })
   return (
     <div
       className="app appGrid"

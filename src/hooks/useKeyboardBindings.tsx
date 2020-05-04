@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from "react"
-
-type Operator = "/" | "*" | "+" | "-"
+import { OperatorChar } from "../types/calctypes"
 
 interface KeyboardEvents {
   onDigit?: (num: number) => void
-  onOperator?: (op: Operator) => void
+  onOperator?: (op: OperatorChar) => void
 }
 
 type HTMLRefObject =
