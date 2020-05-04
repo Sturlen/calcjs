@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import "./App.css"
 import Keypad from "./Keypad"
 import InputBox from "./InputBox"
-import useKeyboardBindings from "../hooks/useKeyboardBindings"
+import useCalcBindings from "../hooks/useCalcBindings"
+import { OperatorChar, DigitChar } from "../types/calctypes"
 
 /**
  * Calculator app
@@ -14,7 +15,19 @@ function App(): JSX.Element {
     setBuffer(buffer + num)
   }
 
-  const [AppRef, handleKeyDown] = useKeyboardBindings({ onDigit: handleNumber })
+  const handleDigit = (num: DigitChar): void => {
+    console.log("digit", num)
+    setBuffer(buffer + num)
+  }
+
+  const handleOperator = (op: OperatorChar): void => {
+    console.log("op", op)
+  }
+
+  const [AppRef, handleKeyDown] = useCalcBindings({
+    handleDigit,
+    handleOperator,
+  })
   return (
     <div
       className="app appGrid"

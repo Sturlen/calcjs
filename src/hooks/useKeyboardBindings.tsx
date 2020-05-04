@@ -1,43 +1,25 @@
 import React, { useRef, useEffect } from "react"
-import { OperatorChar } from "../types/calctypes"
+import { HTMLRefObject, HTMLKeyboardEvent } from "../types/calctypes"
 
-interface KeyboardEvents {
-  onDigit?: (num: number) => void
-  onOperator?: (op: OperatorChar) => void
-}
-
-type HTMLRefObject =
-  | string
-  | ((instance: HTMLDivElement | null) => void)
-  | React.RefObject<HTMLDivElement>
-  | null
-  | undefined
-type HTMLKeyboardEvent = (event: React.KeyboardEvent<HTMLElement>) => void
+export type KeyboardEvents = Map<string, () => void | null | undefined>
 
 /**
  * Handle and trigger events based on which key was pressed.
  */
-function useKeyboardListener({
-  onDigit,
-}: KeyboardEvents): [HTMLRefObject, HTMLKeyboardEvent] {
+function useKeyboardBindings(
+  map: KeyboardEvents
+): [HTMLRefObject, HTMLKeyboardEvent] {
   const RootRef: HTMLRefObject = useRef(null)
 
   useEffect(() => {
     if (document.activeElement === document.body && RootRef.current)
-      RootRef.current.focus()
+      RootRef.current.focus() //select the root element, so that we can recieve events
   })
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>): void => {
-    if (event.key.match(/^\d$/g)?.[0]) {
-      console.log("num", event.key)
-      onDigit?.(parseInt(event.key))
-    } else if (event.key.match(/^=$|^Enter$/g)?.[0]) {
-      console.log("submit", event.key)
-    } else {
-      console.log("default", event.key)
-    }
+    map.get(event.key)?.() //call the function named "key"
   }
   return [RootRef, handleKeyDown]
 }
 
-export default useKeyboardListener
+export default useKeyboardBindings

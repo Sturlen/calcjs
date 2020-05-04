@@ -13,3 +13,18 @@ export type DigitChar =
   | "9"
 
 export type DecimalChar = "," | "."
+
+export type SubmitKey = "Enter" | " "
+
+//HTML
+
+export type HTMLRefObject =
+  | string
+  | ((instance: HTMLDivElement | null) => void)
+  | React.RefObject<HTMLDivElement>
+  | null
+  | undefined
+
+export type HTMLKeyboardEvent = (
+  event: React.KeyboardEvent<HTMLElement>
+) => void
