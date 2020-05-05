@@ -3,18 +3,23 @@ import "./App.css"
 import Keypad from "./Keypad"
 import InputBox from "./InputBox"
 import useCalcBindings from "../hooks/useCalcBindings"
-import { OperatorChar, DigitChar } from "../types/calctypes"
+import { OperatorChar, DigitChar, InputChar } from "../types/calctypes"
+
+function InputArrayToString(arr: InputChar[]): string {
+  return arr.reduce((prev, char) => prev + char, "")
+}
 
 /**
  * Calculator app
  * Uses tabindex to listen for keyboard events
  */
 function App(): JSX.Element {
-  const [buffer, setBuffer] = useState("0")
+  const [buffer, setBuffer] = useState<InputChar[]>([])
 
   const handleDigit = (num: DigitChar): void => {
     console.log("digit", num)
-    setBuffer(buffer + num)
+    const newBuffer: InputChar[] = [...buffer, num]
+    setBuffer(newBuffer)
   }
 
   const handleOperator = (op: OperatorChar): void => {
@@ -32,7 +37,7 @@ function App(): JSX.Element {
       tabIndex={0}
       ref={AppRef}
     >
-      <InputBox value={buffer} />
+      <InputBox value={InputArrayToString(buffer)} />
       <Keypad onDigit={handleDigit} />
     </div>
   )

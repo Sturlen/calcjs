@@ -1,5 +1,4 @@
 import React from "react"
-import BigNumber from "bignumber.js"
 
 interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -19,7 +18,7 @@ function InputBox({
         <p>{history ?? "history"}</p>
       </div>
       <div className="inputRow">
-        <h2>{new BigNumber(value).toFormat()}</h2>
+        <h2>{value || 0}</h2>
       </div>
     </div>
   )
