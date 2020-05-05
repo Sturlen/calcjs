@@ -16,6 +16,8 @@ export type DecimalChar = "," | "."
 
 export type SubmitKey = "Enter" | " "
 
+export type KepadKey = DigitChar | OperatorChar | DecimalChar | SubmitKey
+
 //HTML
 
 export type HTMLRefObject =
