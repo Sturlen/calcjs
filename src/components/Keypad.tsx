@@ -1,13 +1,19 @@
 import React from "react"
 import { ActionButton, NumberButton } from "./KeypadButton"
-import { DigitChar } from "../types/calctypes"
+import { DigitChar, DecimalChar } from "../types/calctypes"
 
 interface KeypadProps {
   className?: "string"
   onDigit?: (label: DigitChar) => void
+  onDecimal?: (label: DecimalChar) => void
 }
 
-function Keypad({ className, onDigit, ...props }: KeypadProps): JSX.Element {
+function Keypad({
+  className,
+  onDigit,
+  onDecimal,
+  ...props
+}: KeypadProps): JSX.Element {
   return (
     <div className={className ?? "keypadElem"} {...props}>
       <NumberButton label={"1"} onDigit={onDigit} />
@@ -24,6 +30,11 @@ function Keypad({ className, onDigit, ...props }: KeypadProps): JSX.Element {
       <ActionButton label="/" title="Divide" />
       <ActionButton label="+" title="Add" />
       <ActionButton label="-" title="Subtract" />
+      <ActionButton
+        label=","
+        title="Decimal"
+        onClick={(): void => onDecimal?.(",")}
+      />
       <ActionButton label="=" title="Equals" className="equalsButton" />
     </div>
   )

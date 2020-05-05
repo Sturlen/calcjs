@@ -3,7 +3,12 @@ import "./App.css"
 import Keypad from "./Keypad"
 import InputBox from "./InputBox"
 import useCalcBindings from "../hooks/useCalcBindings"
-import { OperatorChar, DigitChar, InputChar } from "../types/calctypes"
+import {
+  OperatorChar,
+  DigitChar,
+  InputChar,
+  DecimalChar,
+} from "../types/calctypes"
 
 function InputArrayToString(arr: InputChar[]): string {
   return arr.reduce((prev, char) => prev + char, "")
@@ -14,12 +19,25 @@ function InputArrayToString(arr: InputChar[]): string {
  * Uses tabindex to listen for keyboard events
  */
 function App(): JSX.Element {
-  const [buffer, setBuffer] = useState<InputChar[]>([])
+  const [input, setInput] = useState<InputChar[]>([])
+  const hasDecimalChar = (): boolean => {
+    return !!input.find((char) => char === "," || char === ".")
+  }
 
-  const handleDigit = (num: DigitChar): void => {
+  const handleDigit = (num: InputChar): void => {
     console.log("digit", num)
-    const newBuffer: InputChar[] = [...buffer, num]
-    setBuffer(newBuffer)
+
+    const newinput: InputChar[] = [...input, num]
+    setInput(newinput)
+  }
+
+  const handleDecimal = (char: DecimalChar): void => {
+    console.log("char", char)
+    if (!hasDecimalChar()) {
+      handleDigit(char)
+    } else {
+      console.log("Decimal already exists")
+    }
   }
 
   const handleOperator = (op: OperatorChar): void => {
@@ -37,8 +55,8 @@ function App(): JSX.Element {
       tabIndex={0}
       ref={AppRef}
     >
-      <InputBox value={InputArrayToString(buffer)} />
-      <Keypad onDigit={handleDigit} />
+      <InputBox value={InputArrayToString(input)} />
+      <Keypad onDigit={handleDigit} onDecimal={handleDecimal} />
     </div>
   )
 }
