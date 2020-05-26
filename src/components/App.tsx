@@ -20,6 +20,7 @@ function InputArrayToString(arr: InputChar[]): string {
  */
 function App(): JSX.Element {
   const [input, setInput] = useState<InputChar[]>([])
+  const [ongoing_operation, setOngoingOperation] = useState<OperatorChar>()
   const hasDecimalChar = (): boolean => {
     return !!input.find((char) => char === "," || char === ".")
   }
@@ -42,6 +43,7 @@ function App(): JSX.Element {
 
   const handleOperator = (op: OperatorChar): void => {
     console.log("op", op)
+    setOngoingOperation(op)
   }
 
   const [AppRef, handleKeyDown] = useCalcBindings({
@@ -55,7 +57,10 @@ function App(): JSX.Element {
       tabIndex={0}
       ref={AppRef}
     >
-      <InputBox value={InputArrayToString(input)} />
+      <InputBox
+        value={InputArrayToString(input)}
+        operator={ongoing_operation}
+      />
       <Keypad onDigit={handleDigit} onDecimal={handleDecimal} />
     </div>
   )
