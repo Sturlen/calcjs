@@ -3,12 +3,7 @@ import "./App.css"
 import Keypad from "./Keypad"
 import InputBox from "./InputBox"
 import useCalcBindings from "../hooks/useCalcBindings"
-import {
-  OperatorChar,
-  DigitChar,
-  InputChar,
-  DecimalChar,
-} from "../types/calctypes"
+import { OperatorChar, InputChar, DecimalChar } from "../types/calctypes"
 
 function InputArrayToString(arr: InputChar[]): string {
   return arr.reduce((prev, char) => prev + char, "")
@@ -21,6 +16,8 @@ function InputArrayToString(arr: InputChar[]): string {
 function App(): JSX.Element {
   const [input, setInput] = useState<InputChar[]>([])
   const [ongoing_operation, setOngoingOperation] = useState<OperatorChar>()
+  // TODO: STATE Is Showing Results
+
   const hasDecimalChar = (): boolean => {
     return !!input.find((char) => char === "," || char === ".")
   }
@@ -46,10 +43,25 @@ function App(): JSX.Element {
     setOngoingOperation(op)
   }
 
+  const handleSubmit = (): void => {
+    console.log("submit")
+    // TODO: add number to calculation
+    setInput([])
+    // TODO: add operator to calculation
+    setOngoingOperation(undefined)
+    // TODO: Display result the math
+  }
+
+  // TODO: Handle Clear
+
+  // Keyboard Bindings
   const [AppRef, handleKeyDown] = useCalcBindings({
     handleDigit,
     handleOperator,
+    handleDecimal,
+    handleSubmit,
   })
+
   return (
     <div
       className="app appGrid"
@@ -61,7 +73,12 @@ function App(): JSX.Element {
         value={InputArrayToString(input)}
         operator={ongoing_operation}
       />
-      <Keypad onDigit={handleDigit} onDecimal={handleDecimal} />
+      <Keypad
+        onDigit={handleDigit}
+        onDecimal={handleDecimal}
+        onOperator={handleOperator}
+        onSubmit={handleSubmit}
+      />
     </div>
   )
 }

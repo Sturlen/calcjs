@@ -1,5 +1,5 @@
 import React from "react"
-import { DigitChar } from "../types/calctypes"
+import { DigitChar, OperatorChar } from "../types/calctypes"
 
 interface KeypadButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
@@ -16,6 +16,14 @@ interface ActionButtonProps extends KeypadButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
+interface OperatorButtonProps extends KeypadButtonProps {
+  label: OperatorChar
+  onOperator?: (op: OperatorChar) => void
+}
+
+/**
+ * Button made to fit nicely in a keypad.
+ */
 function KeypadButton({
   disabled,
   label,
@@ -25,6 +33,7 @@ function KeypadButton({
   return (
     <button
       className={`keypadButton${className ? " " + className : ""}`}
+      onMouseDown={(e): void => e.preventDefault()}
       disabled={disabled ?? false}
       {...props}
     >
@@ -33,19 +42,8 @@ function KeypadButton({
   )
 }
 
-function ActionButton({ onClick, ...props }: ActionButtonProps): JSX.Element {
-  return (
-    <KeypadButton
-      onClick={onClick}
-      onMouseDown={(e): void => e.preventDefault()}
-      className={"actionButton"}
-      {...props}
-    />
-  )
-}
-
 /**
- * Button whicj returns the number on the button when clicked.
+ * Returns the labeled number when clicked
  */
 function NumberButton({
   label,
@@ -54,10 +52,9 @@ function NumberButton({
 }: NumberButtonProps): JSX.Element {
   return (
     <KeypadButton
-      onClick={(e): void => {
+      onClick={(): void => {
         onDigit?.(label)
       }}
-      onMouseDown={(e): void => e.preventDefault()}
       label={label}
       className={"numberButton"}
       {...props}
@@ -65,4 +62,25 @@ function NumberButton({
   )
 }
 
-export { KeypadButton, ActionButton, NumberButton }
+/**
+ *
+ * Returns the labeled operator character when clicked
+ */
+function OperatorButton({
+  label,
+  onOperator,
+  ...props
+}: OperatorButtonProps): JSX.Element {
+  return (
+    <KeypadButton
+      onClick={(): void => {
+        onOperator?.(label)
+      }}
+      label={label}
+      className={"operatorButton"}
+      {...props}
+    />
+  )
+}
+
+export { KeypadButton, OperatorButton, NumberButton }
