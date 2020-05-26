@@ -3,6 +3,7 @@ import React from "react"
 interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   history?: string
+  operator?: string
   value: string
 }
 
@@ -10,6 +11,7 @@ function InputBox({
   value,
   className,
   history,
+  operator,
   ...props
 }: InputBoxProps): JSX.Element {
   return (
@@ -18,7 +20,8 @@ function InputBox({
         <p>{history ?? "history"}</p>
       </div>
       <div className="inputRow">
-        <h2>{value || 0}</h2>
+        <h2 className="operatorText">{operator || "o"}</h2>
+        <h2 className="inputText">{value || 0}</h2>
       </div>
     </div>
   )

@@ -93,15 +93,20 @@
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .historyRow p {
-  padding-right: 1rem;
+  padding-right: 2rem;
 }
 
-.inputRow h2 {
-  padding-right: 1rem;
+.inputRow .inputText {
+  padding-right: 2rem;
+}
+
+.inputRow .operatorText {
+  padding-left: 2rem;
 }
 
 .title {
