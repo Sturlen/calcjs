@@ -22,6 +22,8 @@
           "delimiter": "none"
         }
       }
-    ]
+    ],
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": ["off"]
   }
 }
