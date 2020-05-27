@@ -23,6 +23,14 @@ export type SubmitKey = "Enter" | " "
 
 export type KepadKey = DigitChar | OperatorChar | DecimalChar | SubmitKey
 
+/**
+ * Token used to display all steps in a calculation
+ */
+export interface CalcToken {
+  value: string
+  type: "number" | "operator"
+}
+
 //HTML
 
 export type HTMLRefObject =
