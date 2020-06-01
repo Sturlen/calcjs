@@ -17,11 +17,13 @@ function InputBox({
   return (
     <div className={className ?? "inputBox"} {...props}>
       <div className="historyRow">
-        <p>{history ?? "history"}</p>
+        <p title="history">{history ?? "history"}</p>
       </div>
       <div className="inputRow">
         <h2 className="operatorText">{operator || "o"}</h2>
-        <h2 className="inputText">{value || 0}</h2>
+        <h2 className="inputText" title="Result">
+          {value || 0}
+        </h2>
       </div>
     </div>
   )
