@@ -15,9 +15,9 @@ export type DigitChar =
 export type DecimalChar = "," | "."
 
 /**
- * Only digits and decimal characters are accepted in the calculator input buffer
+ * Characters that are accepted in the calculator input buffer
  */
-export type InputChar = DigitChar | DecimalChar
+export type InputChar = DigitChar | DecimalChar | OperatorChar
 
 export type SubmitKey = "Enter" | " "
 

@@ -11,7 +11,7 @@ import useCalculator, { inputArrayToString } from "../hooks/useCalculator"
  */
 function App(): JSX.Element {
   const {
-    state: { input, ongoing_operation, history },
+    state: { input, ongoing_operation, history, result },
     onDecimal,
     onDigit,
     onOperator,
@@ -36,7 +36,7 @@ function App(): JSX.Element {
       ref={AppRef}
     >
       <InputBox
-        value={input_string}
+        value={result || input_string}
         operator={ongoing_operation}
         history={history}
       />

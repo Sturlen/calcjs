@@ -1,11 +1,16 @@
 import { useReducer, useCallback } from "react"
 import { produce } from "immer"
+import {evaluate} from "mathjs"
 import {
   OperatorChar,
   DigitChar,
   DecimalChar,
   InputChar,
 } from "../types/calctypes"
+
+export function inputArrayToString(arr: InputChar[]): string {
+  return arr.reduce((prev, char) => prev + char, "")
+}
 
 export interface CalcHook {
   onDigit?: (label: DigitChar) => void
@@ -26,6 +31,7 @@ interface CalcState {
   history: string
   result?: string
   ongoing_operation?: OperatorChar
+  has_decimal: boolean
 }
 
 /**
@@ -43,6 +49,7 @@ const initial_state: CalcState = {
   history: "",
   result: undefined,
   ongoing_operation: undefined,
+  has_decimal: false
 }
 
 function reducer(state: CalcState, action: CalcAction): CalcState {
@@ -52,21 +59,43 @@ function reducer(state: CalcState, action: CalcAction): CalcState {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const state = null
 
+    const resetInput = (): void => {
+      draft.input = []
+      draft.ongoing_operation = undefined
+      draft.has_decimal = false
+    }
+
     switch (action.type) {
       case "digit":
         console.log("dig", action.num)
         draft.input.push(action.num)
+        delete draft.result
         break
       case "operator":
         console.log("op", action.op)
-        draft.ongoing_operation = action.op
+        draft.input.push(action.op)
+        delete draft.result
         break
       case "decimal":
         console.log("decimal", action.dec)
-        draft.input.push(DEFAULT_DECIMAL_CHAR)
+        
+        if (!draft.has_decimal) {
+          draft.input.push(DEFAULT_DECIMAL_CHAR)
+          draft.has_decimal = true
+        }
+        delete draft.result
         break
       case "submit":
         console.log("submit")
+        const input_expr = inputArrayToString(draft.input)
+        resetInput()
+        try {
+          draft.result = evaluate(input_expr)
+          draft.history = input_expr
+        } catch (error) {
+          draft.result = "Error"
+        }
+        
         break
 
       default:
@@ -98,6 +127,4 @@ export default function useCalculator(): CalcHook {
   }
 }
 
-export function inputArrayToString(arr: InputChar[]): string {
-  return arr.reduce((prev, char) => prev + char, "")
-}
+
